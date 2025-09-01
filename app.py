@@ -1,22 +1,14 @@
 import streamlit as st
-import mysql.connector
-
-@st.cache_resource
-
-def init_connection():
-    return mysql.connector.connect(**st.secrets["mysql"])
-
-conn = init_connection()
+from sqlalchemy import text
 
 
-@st.cache_data(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
-    
-rows = run_query("SELECT * from dataset_analisis;")
+# bikin koneksi
+conn = st.connection("mysql", type="sql")
 
-for row in rows:
-    st.write("f{row[0]} has a :{row[1]}:")
+# bikin tabel contoh kalau belum ada
 
+
+
+# tampilkan data
+rows = conn.query("SELECT * FROM dataset_analisis;", ttl=0)
+st.dataframe(rows)
