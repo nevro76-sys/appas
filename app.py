@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Initialize connection.
-conn = st.connection('mysql', type='sql')
+conn = st.connection('analisis_sentimen', type='sql')
 
 # Perform query.
 df = conn.query('SELECT * from dataset_analisis;', ttl=600)
