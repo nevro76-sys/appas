@@ -12,3 +12,5 @@ conn = st.connection("mysql", type="sql")
 # tampilkan data
 rows = conn.query("SELECT * FROM dataset_analisis;", ttl=0)
 st.dataframe(rows)
+
+conn.session.commit()

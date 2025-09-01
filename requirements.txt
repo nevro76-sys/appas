@@ -1,4 +1,4 @@
 streamlit
 sqlalchemy
+pymysql
 mysql-connector-python
-mysqlclient
