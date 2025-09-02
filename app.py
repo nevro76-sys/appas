@@ -1,16 +1,11 @@
 import streamlit as st
-from sqlalchemy import text
 
+# Initialize connection.
+conn = st.connection("postgresql", type="sql")
 
-# bikin koneksi
-conn = st.connection("mysql", type="sql")
+# Perform query.
+df = conn.query('SELECT * FROM dataset_analisis;', ttl="10m")
 
-# bikin tabel contoh kalau belum ada
-
-
-
-# tampilkan data
-rows = conn.query("SELECT * FROM dataset_analisis;", ttl=0)
-st.dataframe(rows)
-
-conn.session.commit()
+# Print results.
+for row in df.itertuples():
+    st.write(f"{row.dataset_id} has a :{row.text}:")
